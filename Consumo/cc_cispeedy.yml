@@ -19,21 +19,24 @@
     file: "path={{DIRECTORIOSIAC}}/original-files state=directory mode=0775 recurse=yes"
   
   - name: revisa si ya esta el respaldo
-    stat: "path={{DIRECTORIOSIAC}}/original-files/captiveCore"
+    stat: "path={{DIRECTORIOSIAC}}/original-files/lib"
     register: respaldo
   
   - name: respaldo original
-    shell: "cp -rp {{MULE_HOME}}/apps/captiveCore* {{DIRECTORIOSIAC}}/speedygws/original-files"
+    shell: "cp -rp {{MULE_HOME}}/lib {{MULE_HOME}}/conf {{DIRECTORIOSIAC}}/original-files"
     when: respaldo.exists|False
   
-  - name: Borrando archivos productivos
-    file: "path={{MULE_HOME}}/apps/captiveCore state=absent "
+  - name: Borrando archivos lib productivos
+    file: "path={{MULE_HOME}}/apps/lib state=absent "
+
+  - name: Borrando archivos conf productivos
+    file: "path={{MULE_HOME}}/apps/conf state=absent "
   
   - name: Copia de archivos modificados
-    shell: "cp -r /var/backups/siac-26-10-15/gwtsva/modified-files/captiveCore {{MULE_HOME}}/apps/ "
+    shell: "cp -r {{DIRECTORIOSIAC}}/modified-files/lib {{DIRECTORIOSIAC}}/modified-files/conf {{MULE_HOME}}/"
 
-  - name: Copia de archivos jar
-    shell: "cp /var/backups/siac-26-10-15/gwtsva/modified-files/*.jar {{MULE_HOME}}/lib/user/"
+  # - name: Copia de archivos jar
+  #   shell: "cp /var/backups/siac-26-10-15/gwtsva/modified-files/*.jar {{MULE_HOME}}/lib/user/"
 
   - name: Copia de archivos .properties
     shell: "cp {{DIRECTORIOSIAC}}/gwtsva/original-files/captiveCore/classes/*.properties {{MULE_HOME}}/apps/captiveCore/classes/" 
