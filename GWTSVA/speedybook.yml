@@ -1,0 +1,23 @@
+---
+- hosts: speedy
+  remote_user: gwspeedy
+
+  tasks:
+
+  - name: crear directorios de respaldos
+    file: "path={{DIRECTORIOSIAC}}/gwtsva/original-files state=directory mode=0775 recurse=yes"
+
+  - name: respaldo original
+    shell: "cp -rp {{MULE_HOME}}/apps/captiveCore* {{DIRECTORIOSIAC}}/gwtsva/original-files"
+
+  - name: Bajando mule
+    wait_for: path={{ MULE_HOME }}/bin/.mule.pid state=present timeout=2
+    register: pid_file
+    ignore_errors: True
+
+  - shell: "{{ MULE_HOME }}/bin/shutdown.sh"
+    async: 45
+    poll: 5
+    when:  pid_file|success
+
+
