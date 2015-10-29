@@ -1,0 +1,7 @@
+---
+
+
+  - name: baja de instancias
+    shell: "{{ TOMCAT_HOME }}/TOMCAT_HOME/bin/shutdown-all.sh"
+    async: 45
+    poll: 5

@@ -1,0 +1,10 @@
+---
+- hosts: apppcau03
+  remote_user: pcautivo
+  # vars:
+  #   instancias: [ 1 : 15 ]
+
+
+  tasks:
+  - include: handlers/start-multi-pcautivo.yml
+

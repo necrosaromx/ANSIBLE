@@ -1,0 +1,6 @@
+---
+  tasks:
+
+  - name: baja de instancias
+    shell: "{{ TOMCAT_HOME }}/TOMCAT_HOME/bin/shutdown{{ item }}.sh"
+    with_items: "{{instancias}}"

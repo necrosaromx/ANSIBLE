@@ -1,0 +1,5 @@
+---
+  tasks:
+
+  - name: baja de instancia
+    shell: {{ TOMCAT_HOME }}/bin/shutdown.sh
