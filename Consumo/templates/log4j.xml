@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+    <!--
+       Read http://logging.apache.org/log4j/docs/api/org/apache/log4j/DailyRollingFileAppender.html
+       for more information on DaliyRollingFileAppender configuration options.
+    -->
+    <appender name="balance" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/balance.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="devnull" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/dev/null"/>
+        <param name="Threshold" value="off"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="mule" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/mule.log"/>
+        <param name="Threshold" value="info"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="error" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/error.log"/>
+        <param name="Threshold" value="error"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="trace" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/trace.log"/>
+        <param name="Threshold" value="trace"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="trans" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/trans.log"/>
+        <param name="Threshold" value="info"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="notificationMessages" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/notMessages.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="chargingmanager" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/chmanager.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="spr" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/spr.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="m2k" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/m2k.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="olm" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/olm.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="air" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/air.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%x][%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="hibernate" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="{{ APP_DIR }}/logs/core/hibernate.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+    
+    <!--<appender name="snmp" class="org.apache.log4j.ext.SNMPTrapAppender">
+        <param name="ImplementationClassName" value="org.apache.log4j.ext.JoeSNMPTrapSender"/>
+        <param name="ManagementHost" value="127.0.0.1"/>
+        <param name="ManagementHostTrapListenPort" value="162"/>
+        <param name="EnterpriseOID" value="1.3.6.1.4.1.6190"/>
+        <param name="LocalIPAddress" value="127.0.0.1"/>
+        <param name="LocalTrapSendPort" value="9003"/>
+        <param name="GenericTrapType" value="6"/>
+        <param name="SpecificTrapType" value="1"/>
+        <param name="CommunityString" value="T3GOM"/>
+        <param name="ForwardStackTraceWithTrap" value="false"/>
+        <param name="Threshold" value="error"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p %c{1} - %m%n;1.3.6.1.4.1.6190.0.0.0.0"/>
+        </layout>
+    </appender> -->
+
+    <category name="error" additivity="false">
+        <priority value="error"/>
+        <appender-ref ref="error"/>
+    </category>
+
+    <category name="trace" additivity="false">
+        <priority value="debug"/>
+    </category>
+
+    <category name="trans" additivity="false">
+        <priority value="info"/>
+        <appender-ref ref="trans"/>
+    </category>
+    
+    <category name="notificationMessages" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="notificationMessages"/>
+    </category>
+
+    <category name="cmobile" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+    </category>
+
+
+<category name="com.urbanairship" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+
+    </category>
+
+    <category name="cmobile.in.air" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="air"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+    </category>
+
+    <category name="cmobile.in.m2k" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="m2k"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+    </category>
+    
+    <category name="cmobile.in.olm" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="olm"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+    </category>
+    
+    <category name="cmobile.in.spr" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="spr"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+    </category>
+    <category name="mx.citi.in" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+    </category>
+
+    <!--<category name="cmobile.common.snmp" additivity="false">
+        <priority value="error"/>
+        <appender-ref ref="snmp"/>
+    </category>  -->
+
+    <category name="org.springframework">
+        <priority value="error"/>
+    </category>
+
+    <category name="org.hibernate">
+        <priority value="off"/>
+        <appender-ref ref="hibernate"/>
+    </category>
+    
+    <category name="org.hibernate.SQL">
+        <priority value="off"/>
+        <appender-ref ref="hibernate"/>
+    </category>
+    
+    <category name="org.hibernate.type">
+        <priority value="off"/>
+        <appender-ref ref="hibernate"/>
+    </category>
+    
+    <category name="org.hibernate.jdbc">
+        <priority value="off"/>
+        <appender-ref ref="hibernate"/>
+    </category>
+    
+    <category name="com.mchange" additivity="false">
+        <priority value="error"/>
+        <appender-ref ref="hibernate"/>
+    </category>
+    
+    <category name="org.mule" additivity="false">
+        <priority value="info"/>
+        <appender-ref ref="mule" />
+    </category>
+
+    <category name="org">
+        <priority value="error"/>
+    </category>
+    <category name="mx.citi.in.tango.connector" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+    </category>
+    
+    <category name="mx.citi.in.rtcc7" additivity="false">
+         <priority value="debug"/>
+         <appender-ref ref="trace"/>
+         <appender-ref ref="error"/>
+    </category>
+     
+    <category name="com.hp.rtcc7" additivity="false">
+         <priority value="debug"/>
+         <appender-ref ref="trace"/>
+    </category>
+    
+    <root>
+        <appender-ref ref="trace"/>
+    </root>
+
+</log4j:configuration>

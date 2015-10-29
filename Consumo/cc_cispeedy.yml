@@ -1,6 +1,7 @@
-##MULE_HOME : /app/speedy-gws/mule-standalone-3.2.1/
+##MULE_HOME : /app/speedy-balance/balance-core
 ##DIRECTORIOSIAC : /var/backups/siac-cispeedy-26-10-15
-- hosts: speedy
+#APP_DIR : /app/speedy-balance
+- hosts: dbpcau04
   remote_user: cispeedy
 
   tasks:
@@ -14,24 +15,24 @@
     async: 45
     poll: 5
     when:  pid_file|success
-  
+
   - name: crear directorios de respaldos
     file: "path={{DIRECTORIOSIAC}}/original-files state=directory mode=0775 recurse=yes"
-  
+
   - name: revisa si ya esta el respaldo
     stat: "path={{DIRECTORIOSIAC}}/original-files/lib"
     register: respaldo
-  
+
   - name: respaldo original
     shell: "cp -rp {{MULE_HOME}}/lib {{MULE_HOME}}/conf {{DIRECTORIOSIAC}}/original-files"
-    when: respaldo.exists|False
-  
+    when: not respaldo.stat.exists
+
   - name: Borrando archivos lib productivos
-    file: "path={{MULE_HOME}}/apps/lib state=absent "
+    file: "path={{MULE_HOME}}/lib state=absent "
 
   - name: Borrando archivos conf productivos
-    file: "path={{MULE_HOME}}/apps/conf state=absent "
-  
+    file: "path={{MULE_HOME}}/conf state=absent "
+
   - name: Copia de archivos modificados
     shell: "cp -r {{DIRECTORIOSIAC}}/modified-files/lib {{DIRECTORIOSIAC}}/modified-files/conf {{MULE_HOME}}/"
 
@@ -39,31 +40,19 @@
   #   shell: "cp /var/backups/siac-26-10-15/gwtsva/modified-files/*.jar {{MULE_HOME}}/lib/user/"
 
   - name: Copia de archivos .properties
-    shell: "cp {{DIRECTORIOSIAC}}/gwtsva/original-files/captiveCore/classes/*.properties {{MULE_HOME}}/apps/captiveCore/classes/" 
+    template: "src=templates/balance.properties dest={{MULE_HOME}}/conf/"
 
   - name: Copia de archivos log4j
-    shell: "cp {{DIRECTORIOSIAC}}/gwtsva/original-files/captiveCore/classes/log4j.xml {{MULE_HOME}}/apps/captiveCore/classes/"
+    template: "src=templates/log4j.xml dest={{MULE_HOME}}/conf/"
 
-  - name: Modifiacion de ccore.properties
-    template: "src=templates/ccore.properties dest={{MULE_HOME}}/apps/captiveCore/classes/"
- 
+  # - name: tunning para speedybalance maxThreadsActive
+  #   replace: "dest={{ MULE_HOME }}/conf/main-mule-config.xml regexp='maxThreadsActive=\"[0-9*]\"' replace='maxThreadsActive=\"750\"' backup=yes"
 
-  - name: tunning para speedygws maxThreadsActive
-    replace: "dest={{ MULE_HOME }}/apps/captiveCore/mule-config.xml regexp='maxThreadsActive=[^ ]*' replace='maxThreadsActive=\"750\"' backup=yes"
-  - name: tunning para speedygws maxBufferSize 
-    replace: "dest={{ MULE_HOME }}/apps/captiveCore/mule-config.xml regexp='maxBufferSize=[^ ]*' replace='maxBufferSize=\"150\"' backup=yes"
-  - name: comentar spring-quartz
-    replace: dest='{{ MULE_HOME }}/apps/captiveCore/spring-quartz.xml' regexp='(<ref bean=.getNotificationsTrigger. />)' replace='<!-- \1 -->' backup=yes
-  - name: comentar spring-config 1
-    replace: dest={{ MULE_HOME }}/apps/captiveCore/spring-config.xml regexp='(<ref bean=.loadProductsTrigger. />)' replace='<!-- \1 -->' backup=yes
-  - name: comentar spring-config 2
-    replace: dest={{ MULE_HOME }}/apps/captiveCore/spring-config.xml regexp='(<ref bean=.loadProductsTriggerClaroMusica. />)' replace='<!-- \1 -->' backup=yes
-  - name: comentar spring-config 3
-    replace: dest={{ MULE_HOME }}/apps/captiveCore/spring-config.xml regexp='(<ref bean=.loadProductsTriggerClaroMusicaNofit. />)' replace='<!-- \1 -->' backup=yes
+  # - name: tunning para speedybalance maxBufferSize 
+  #   replace: "dest={{ MULE_HOME }}/conf/main-mule-config.xml regexp='maxBufferSize=\"[0-9*]\"' replace='maxBufferSize=\"150\"' backup=yes"
 
   - name: Iniciar Core
     shell: "{{ MULE_HOME }}/bin/startup.sh"
     async: 45
     poll: 5
 
-  - wait_for: "path={{ MULE_HOME }}/logs/mule.log search_regex='* DEPLOYED           *' timeout=350 delay=300"
