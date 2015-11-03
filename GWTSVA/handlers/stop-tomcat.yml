@@ -1,0 +1,10 @@
+---
+
+  - name: Bajando tomcat
+    wait_for: "port={{ TOMCAT_PORT }} state=started timeout=2"
+    register: puertoarriba
+    ignore_errors: True
+  - shell: "{{ TOMCAT_HOME }}/bin/shutdown.sh"
+    async: 45
+    poll: 5
+    when: puertoarriba|success
