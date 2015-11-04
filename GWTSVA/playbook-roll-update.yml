@@ -1,0 +1,75 @@
+#SIAC=86554
+---
+- hosts: gwtsvaccautivoweb
+  remote_user: ccautivo
+  # serial: 1
+  vars:
+    TOMCAT_HOME: /app/gwtsva/web
+
+  tasks:
+
+  - include: handlers/stop-tomcat.yml 
+
+- hosts: gwtsvaccautivo
+  remote_user: ccautivo
+  # serial: 1
+  vars:
+    MULE_HOME: /app/gwtsva/mule-standalone-3.2.1
+
+  tasks:
+  - include: handlers/stop-mule.yml 
+  - name: Verificando si hay un respaldo previo
+    stat: "path=/var/backups/siac-{{ SIAC }}/original-files/captiveCore"
+    register: respaldo
+  - name: Removiendo version actual
+    file: "path={{ MULE_HOME }}/apps/captiveCore state=absent"
+    when: respaldo.stat.exists 
+  - name: Colocando copia modificada
+    shell: "cp -r /var/backups/siac-{{ SIAC }}/modified-files/captiveCore {{ MULE_HOME }}/apps/ "
+  - include: handlers/start-mule.yml
+
+- hosts: gwtsvaccautivoweb
+  remote_user: ccautivo
+  # serial: 1
+  vars:
+    TOMCAT_HOME: /app/gwtsva/web
+
+  tasks:
+  - include: handlers/start-tomcat.yml hosts=gwtsvaccautivoweb 
+
+- hosts: gwtsvaccautivoweb
+  remote_user: gwspeedy
+  # serial: 1
+  vars:
+    TOMCAT_HOME: /app/gwtsva/speedyweb/TOMCAT_HOME
+
+  tasks:
+
+  - include: handlers/stop-tomcat.yml 
+
+- hosts: gwtsvaccautivo
+  remote_user: gwspeedy
+  # serial: 1
+  vars:
+    MULE_HOME: /app/speedy-gws/mule-standalone-3.2.1
+
+  tasks:
+  - include: handlers/stop-mule.yml 
+  - name: Verificando si hay un respaldo previo
+    stat: "path=/var/backups/siac-{{ SIAC }}-speedy/original-files/captiveCore"
+    register: respaldo
+  - name: Removiendo version actual
+    file: "path={{ MULE_HOME }}/apps/captiveCore state=absent"
+    when: respaldo.stat.exists 
+  - name: Colocando copia modificada
+    shell: "cp -r /var/backups/siac-{{ SIAC }}-speedy/modified-files/captiveCore {{ MULE_HOME }}/apps/ "
+  - include: handlers/start-mule.yml
+
+- hosts: gwtsvaccautivoweb
+  remote_user: gwspeedy
+  # serial: 1
+  vars:
+    TOMCAT_HOME: /app/gwtsva/speedyweb/TOMCAT_HOME
+
+  tasks:
+  - include: handlers/start-tomcat.yml hosts=gwtsvaccautivoweb 
