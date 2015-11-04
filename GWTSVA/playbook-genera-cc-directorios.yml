@@ -1,0 +1,23 @@
+---
+- hosts: gwtsvaccautivo
+  remote_user: ccautivo
+  serial: 1
+
+  tasks:
+
+  - name: Creando directorios de respaldo
+    file: "path=/var/backups/siac-{{ SIAC }}/original-files state=directory mode=0775 recurse=yes"
+  - name: Creando directorios modificados
+    file: "path=/var/backups/siac-{{ SIAC }}/modified-files state=directory mode=0775 recurse=yes"
+  - name: Verificando si hay un respaldo previo
+    stat: "path=/var/backups/siac-{{ SIAC }}/original-files/captiveCore"
+    register: respaldo
+  - name: Generando respaldo original-files
+    shell: "cp -rp {{ MULE_HOME }}/apps/captiveCore /var/backups/siac-{{ SIAC }}/original-files/"
+    when: not respaldo.stat.exists
+  - name: Generando copia para modificar
+    shell: "cp -r /var/backups/siac-{{ SIAC }}/original-files/captiveCore /var/backups/siac-{{ SIAC }}/modified-files/captiveCore "
+  - name: Aplicando cambios en directorio modified-files 1
+    copy: "src=files/ConvertibleMBProductChecker.class  dest=/var/backups/siac-{{ SIAC }}/modified-files/captiveCore/classes/com/citi/captive/core/util/checker/"
+  - name: Aplicando cambios en directorio modified-files 2
+    copy: "src=files/SharedInternetValidationImpl.class  dest=/var/backups/siac-{{ SIAC }}/modified-files/captiveCore/classes/com/citi/captive/core/validation/"
