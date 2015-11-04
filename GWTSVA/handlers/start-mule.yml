@@ -1,0 +1,6 @@
+---
+
+  - name: Subiendo Core
+    shell: "{{ MULE_HOME }}/bin/startup.sh"
+    async: 45
+    poll: 5
