@@ -1,0 +1,6 @@
+---
+
+  - name: Alta de instancia
+    shell: "{{ TOMCAT_HOME }}/bin/startup.sh"
+    async: 45
+    poll: 5
