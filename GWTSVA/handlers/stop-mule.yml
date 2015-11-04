@@ -1,0 +1,6 @@
+---
+
+  - shell: "{{ MULE_HOME }}/bin/shutdown.sh"
+    async: 45
+    poll: 5
+
