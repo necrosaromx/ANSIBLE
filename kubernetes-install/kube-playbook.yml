@@ -1,9 +1,11 @@
 ---
-- hosts: 192.168.1.77
+- hosts: master
   remote_user: root
 
 
   tasks:
-    - name: test connection
-      ping:
+    - name: install kubernetes on master node
+      yum:
+        name: kubernetes
+        state: present
 
