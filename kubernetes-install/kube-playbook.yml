@@ -8,4 +8,8 @@
       yum:
         name: kubernetes
         state: present
+    - name: install etcd  on master node
+      yum:
+        name: etcd
+        state: present
 
