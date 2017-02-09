@@ -18,5 +18,13 @@
         state: present
     - template: #Crea el archivo /etc/kubernetes/config
         src: templates/kubernetes_config
-        dest: /etc/kubernetes/config 
+        dest: /etc/kubernetes/config
+#    - service:
+#        name: firewalld
+#        enabled: false
+#        state: stopped 
+#    - service:
+#        name: iptables-services
+#        enabled: false
+#        state: stopped 
 ...
