@@ -1,15 +1,19 @@
 ---
 - hosts: master
   remote_user: root
-
+  vars:
+    kube_port: 8080
+    kube_master: 192.168.1.77 
 
   tasks:
+    #kubernetes tambien debe ser instalado en los nodos
     - name: install kubernetes on master node
       yum:
         name: kubernetes
         state: present
+      #etcd solo va en master
     - name: install etcd  on master node
       yum:
         name: etcd
         state: present
-
+...
