@@ -35,5 +35,16 @@
         regexp: '^ETCD_LISTEN_CLIENT_URLS=.http:\/\/.*:(.*)$'
         replace: 'ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:\1'
         backup: yes
-                             
+    - service:
+        name: etcd
+        state: started
+    - service: 
+        name:  kube-apiserver  
+        state: started
+    - service:
+        name: kube-controller-manager
+        state: started
+    - service:
+        name: kube-scheduler
+        state: started 
 ...
