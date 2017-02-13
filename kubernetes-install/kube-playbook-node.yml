@@ -1,0 +1,19 @@
+---
+- hosts: master
+  remote_user: root
+  vars:
+    kube_port: 8080
+    kube_master: 127.0.0.1
+
+  tasks:
+    #tareas a ejecutar para que el nodo sea añadido/identificado por el master
+    - service:
+        name: kube-proxy
+        state: started
+    - service: 
+        name:  kubelet  
+        state: started
+    - service:
+        name: docker
+        state: started
+...
