@@ -1,0 +1,11 @@
+{
+    "apiVersion": "v1",
+    "kind": "Node",
+    "metadata": {
+        "name": "rhelmaster",
+        "labels":{ "name": "rh-node-label"}
+    },
+    "spec": {
+        "externalID": "rhelmaster"
+    }
+}
